@@ -102,6 +102,30 @@ func GetTemplateFileContent() string {
 	return string(content)
 }
 
+func GetCXX() string {
+	cxx := viper.GetString("CXX")
+	if cxx != "" {
+		return cxx
+	}
+	cxx = os.Getenv("CXX")
+	if cxx != "" {
+		return cxx
+	}
+
+	return "c++"
+}
+
+const DEFAULT_CXXFLAGS = "-g -Wall -Wextra -fsanitize=undefined,address -std=c++20"
+
+func GetCXXFLAGS() string {
+	cxxflags := viper.GetString("CXXFLAGS")
+	if cxxflags != "" {
+		return cxxflags
+	}
+
+	return DEFAULT_CXXFLAGS
+}
+
 const VSCODE_TEMPLATE_SETTINGS_FILE_KEY = "VSCODE_TEMPLATE_SETTINGS_FILE"
 const VSCODE_TEMPLATE_SETTINGS_DEFAULT = `
 {
