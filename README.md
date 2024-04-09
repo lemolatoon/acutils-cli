@@ -10,9 +10,37 @@ Atcoder といったコンテストに参加するときに簡単に
 
 ことを可能にする。
 
+## インストール/install
+
+```
+$ go install github.com/lemolatoon/acutils-cli@latest
+$ acutils-cli
+acutils is a Atcoder utilities CLI developed only for lemolatoon.
+
+This application is a tool to generate template directory/files for contests
+to quickly start solving problems of the contest.
+
+Usage:
+  acutils-cli [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  init        Initialize contest directory
+  new         create directory for the problem, and put the template source file in it.
+  run         Compile and Run source code of specified problem-name
+
+Flags:
+      --config string   config file (default is $HOME/.acutils-cli.toml)
+  -h, --help            help for acutils-cli
+  -t, --toggle          Help message for toggle
+
+Use "acutils-cli [command] --help" for more information about a command.
+```
+
 ## 使用例
 
-コンテストのディレクトリを作成
+### コンテストのディレクトリを作成
 
 ```
 $ acutils-cli init abc348
@@ -21,7 +49,7 @@ Failed to read settings.json file: /home/lemolatoon/.vscode/settings.json
 $ cd abc348
 ```
 
-問題のディレクトリを作成
+### 問題のディレクトリを作成
 
 ```
 $ acutils-cli new a
@@ -29,7 +57,9 @@ Using config file: /home/lemolatoon/.acutils-cli.toml
 Failed to read template file: /home/lemolatoon/template.cpp
 ```
 
-コーディング
+### コーディング
+
+実際には、vscode でやる。
 
 ```
 $ nvim a/main.cpp
@@ -48,7 +78,9 @@ return 0;
 }
 ```
 
-コンパイル&実行
+### コンパイル&実行
+
+ソースコードが変更されてない場合は、コンパイルせずに実行する。
 
 ```
 
