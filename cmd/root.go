@@ -24,6 +24,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -60,11 +61,80 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.acutils-cli.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.acutils-cli.toml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+}
+
+const TEMPLATE_FILE_KEY = "TEMPLATE_FILE"
+const TEMPLATE_DEFAULT = `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  cout << "Hello!\n";
+  return 0;
+}
+`
+
+func configDir() string {
+	configPath := viper.ConfigFileUsed()
+	if configPath == "" {
+		return ""
+	}
+
+	return filepath.Dir(configPath)
+}
+
+func GetTemplateFileContent() string {
+	templateFilepath := viper.GetString(TEMPLATE_FILE_KEY)
+	if templateFilepath == "" {
+		return TEMPLATE_DEFAULT
+	}
+	templateFullpath := filepath.Join(configDir(), templateFilepath)
+
+	content, err := os.ReadFile(templateFullpath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to read template file: %s\n", templateFullpath)
+		return TEMPLATE_DEFAULT
+	}
+	return string(content)
+}
+
+const VSCODE_TEMPLATE_SETTINGS_FILE_KEY = "VSCODE_TEMPLATE_SETTINGS_FILE"
+const VSCODE_TEMPLATE_SETTINGS_DEFAULT = `
+{
+        "[cpp]": {
+                "editor.defaultFormatter": "xaver.clang-format"
+        },
+        "clang-format.executable": "/usr/bin/clang-format-14",
+        "clangd.fallbackFlags": [
+                "-std=c++20"
+        ],
+        "editor.formatOnSave": true,
+        "github.copilot.enable": {
+                "*": false,
+                "plaintext": false,
+                "markdown": false,
+                "scminput": false
+        }
+}
+`
+
+func GetVscodeSettingsFileContent() string {
+	settingsJsonPath := viper.GetString(VSCODE_TEMPLATE_SETTINGS_FILE_KEY)
+	if settingsJsonPath == "" {
+		return VSCODE_TEMPLATE_SETTINGS_DEFAULT
+	}
+	settingsJsonFullpath := filepath.Join(configDir(), settingsJsonPath)
+
+	content, err := os.ReadFile(settingsJsonFullpath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to read settings.json file: %s\n", settingsJsonFullpath)
+		return VSCODE_TEMPLATE_SETTINGS_DEFAULT
+	}
+	return string(content)
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -79,8 +149,8 @@ func initConfig() {
 
 		// Search config in home directory with name ".acutils-cli" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigType("yaml")
-		viper.SetConfigName(".acutils-cli")
+		viper.SetConfigType("toml")
+		viper.SetConfigName(".acutils-cli.toml")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
@@ -89,4 +159,5 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	}
+
 }
