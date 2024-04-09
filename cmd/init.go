@@ -33,7 +33,10 @@ import (
 var initCmd = &cobra.Command{
 	Use:   "init contest-name",
 	Short: "Initialize contest directory",
-	Long:  `Initialize contest directory`,
+	Long: `Initialize contest directory
+
+Create new directory for the contest. This command will also put
+.vscode/settings.json on its directory.	`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return errors.New(`contest-name must be provided`)
