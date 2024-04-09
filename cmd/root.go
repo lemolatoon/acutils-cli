@@ -34,13 +34,11 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "acutils-cli",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "acutils is a Atcoder utilities CLI developed only for lemolatoon.",
+	Long: `acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+This application is a tool to generate template directory/files for contests 
+to quickly start solving problems of the contest.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
