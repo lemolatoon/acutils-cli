@@ -12,8 +12,17 @@ Atcoder といったコンテストに参加するときに簡単に
 
 ## インストール/install
 
+1. go環境がある場合
 ```
 $ go install github.com/lemolatoon/acutils-cli@latest
+```
+
+2. go環境がない場合
+```
+curl --proto '=https' --tlsv1.2 -sSf https://lemolatoon.github.io/acutils-cli/installer.sh | sh
+```
+
+```
 $ acutils-cli
 acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
