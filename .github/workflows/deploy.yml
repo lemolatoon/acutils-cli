@@ -1,0 +1,50 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: ./go.mod
+          cache: true
+
+      - name: Build binary
+        run: |
+          CG_ENABLED=0 go build -o acutils-cli
+
+      - name: Upload binary for deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: acutils-cli
+          path: acutils-cli
+
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: build
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download binary
+        uses: actions/download-artifact@v3
+        with:
+          name: acutils-cli
+          path: installer/
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./installer
