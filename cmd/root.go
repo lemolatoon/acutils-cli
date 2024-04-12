@@ -61,7 +61,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.acutils-cli.toml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.acutils-cli/config.toml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -172,13 +172,12 @@ func initConfig() {
 		cobra.CheckErr(err)
 
 		// Search config in home directory with name ".acutils-cli" (without extension).
-		viper.AddConfigPath(home)
+		viper.AddConfigPath(filepath.Join(home, ".acutils-cli"))
 		viper.SetConfigType("toml")
-		viper.SetConfigName(".acutils-cli.toml")
+		viper.SetConfigName("config.toml")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
-
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
