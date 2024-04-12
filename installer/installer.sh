@@ -31,8 +31,11 @@ curl -sSL "$BINARY_URL" -o "$BIN_DIR/acutils-cli"
 chmod +x "$BIN_DIR/acutils-cli"
 
 # PATH に $HOME/.acutils-cli/bin を加えるように促す
-echo "Installation completed successfully."
-echo "Please add the following line to your shell configuration file (e.g., .bashrc, .zshrc):"
-echo 'export PATH="$HOME/.acutils-cli/bin:$PATH"'
-echo "Or, run this command to update your session's environment:"
-echo 'export PATH="$HOME/.acutils-cli/bin:$PATH"'
+echo ""
+echo "#########################################################################################################"
+echo "##  Installation completed successfully."
+echo "##  Please add the following line to your shell configuration file (e.g., .bashrc, .zshrc):"
+echo "##  export PATH=\"$HOME/.acutils-cli/bin:\$PATH\""
+echo "##  Or, run this command to update your session's environment:"
+echo "##  export PATH=\"$HOME/.acutils-cli/bin:\$PATH\""
+echo "#########################################################################################################"
