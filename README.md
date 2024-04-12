@@ -39,6 +39,7 @@ Use "acutils-cli [command] --help" for more information about a command.
 ```
 
 お好みで、以下のaliasを追加するとよいです。
+`$HOME/.bashrc`や、`$HOME/.config/fish/config.fish`など、お使いのshellに合わせて設定しましょう。
 ```
 $ alias ac='acutils-cli'
 ```
