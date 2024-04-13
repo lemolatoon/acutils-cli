@@ -24,16 +24,19 @@ curl --proto '=https' --tlsv1.2 -sSf https://lemolatoon.github.io/acutils-cli/in
 ```
 
 ```
-$ acutils-cli
+$ acutils-cli --version
+acutils-cli version 0.1.0
+$ acutils-cli --help
 acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
-This application is a tool to generate template directory/files for contests
+This application is a tool to generate template directory/files for contests 
 to quickly start solving problems of the contest.
 
 Usage:
   acutils-cli [command]
 
 Available Commands:
+  clip        Copy the source code to the clipboard.
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
   init        Initialize contest directory
@@ -41,9 +44,9 @@ Available Commands:
   run         Compile and Run source code of specified problem-name
 
 Flags:
-      --config string   config file (default is $HOME/.acutils-cli.toml)
+      --config string   config file (default is $HOME/.acutils-cli/config.toml)
   -h, --help            help for acutils-cli
-  -t, --toggle          Help message for toggle
+  -v, --version         version for acutils-cli
 
 Use "acutils-cli [command] --help" for more information about a command.
 ```
