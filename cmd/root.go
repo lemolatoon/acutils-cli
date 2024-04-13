@@ -34,8 +34,9 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "acutils-cli",
-	Short: "acutils is a Atcoder utilities CLI developed only for lemolatoon.",
+	Use:     "acutils-cli",
+	Version: "0.1.0",
+	Short:   "acutils is a Atcoder utilities CLI developed only for lemolatoon.",
 	Long: `acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
 This application is a tool to generate template directory/files for contests 
