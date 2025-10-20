@@ -35,7 +35,7 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:     "acutils-cli",
-	Version: "0.1.0",
+	Version: "0.2.0",
 	Short:   "acutils is a Atcoder utilities CLI developed only for lemolatoon.",
 	Long: `acutils is a Atcoder utilities CLI developed only for lemolatoon.
 

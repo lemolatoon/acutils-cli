@@ -25,7 +25,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://lemolatoon.github.io/acutils-cli/in
 
 ```
 $ acutils-cli --version
-acutils-cli version 0.1.0
+acutils-cli version 0.2.0
 $ acutils-cli --help
 acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
@@ -132,4 +132,3 @@ $ acutils-cli clip a
 ## 注意
 
 これは完全に個人用です。
-
