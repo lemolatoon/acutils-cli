@@ -32,9 +32,8 @@ jobs:
           CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o installer/acutils-cli-darwin-arm64
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: ./installer
 
   deploy:
@@ -48,5 +47,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages
