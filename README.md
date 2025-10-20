@@ -76,6 +76,12 @@ Using config file: /home/lemolatoon/.acutils-cli.toml
 Failed to read template file: /home/lemolatoon/template.cpp
 ```
 
+テンプレートファイルを個別に指定したい場合は `--template` フラグを利用できます（デフォルトは `$HOME/.acutils-cli/template.cpp`。存在しない場合は内蔵テンプレートを使用します）。
+
+```
+$ acutils-cli new b --template ./my-template.cpp
+```
+
 ### コーディング
 
 実際には、vscode でやる。
@@ -126,3 +132,4 @@ $ acutils-cli clip a
 ## 注意
 
 これは完全に個人用です。
+
