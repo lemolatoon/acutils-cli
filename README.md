@@ -25,7 +25,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://lemolatoon.github.io/acutils-cli/in
 
 ```
 $ acutils-cli --version
-acutils-cli version 0.1.0
+acutils-cli version 0.2.0
 $ acutils-cli --help
 acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
@@ -74,6 +74,12 @@ $ cd abc348
 $ acutils-cli new a
 Using config file: /home/lemolatoon/.acutils-cli.toml
 Failed to read template file: /home/lemolatoon/template.cpp
+```
+
+テンプレートファイルを個別に指定したい場合は `--template` フラグを利用できます（デフォルトは `$HOME/.acutils-cli/template.cpp`。存在しない場合は内蔵テンプレートを使用します）。
+
+```
+$ acutils-cli new b --template ./my-template.cpp
 ```
 
 ### コーディング

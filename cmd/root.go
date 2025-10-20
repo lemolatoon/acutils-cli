@@ -35,7 +35,7 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:     "acutils-cli",
-	Version: "0.1.0",
+	Version: "0.2.0",
 	Short:   "acutils is a Atcoder utilities CLI developed only for lemolatoon.",
 	Long: `acutils is a Atcoder utilities CLI developed only for lemolatoon.
 
@@ -80,16 +80,40 @@ func configDir() string {
 	return filepath.Dir(configPath)
 }
 
+func defaultTemplatePath() string {
+	home, err := os.UserHomeDir()
+	if err != nil || home == "" {
+		return ""
+	}
+
+	return filepath.Join(home, ".acutils-cli", "template.cpp")
+}
+
 func GetTemplateFileContent() string {
 	templateFilepath := viper.GetString(TEMPLATE_FILE_KEY)
 	if templateFilepath == "" {
+		if defaultPath := defaultTemplatePath(); defaultPath != "" {
+			if content, err := os.ReadFile(defaultPath); err == nil {
+				return string(content)
+			}
+		}
 		return TEMPLATE_DEFAULT
 	}
-	templateFullpath := filepath.Join(configDir(), templateFilepath)
+	templateFullpath := templateFilepath
+	if !filepath.IsAbs(templateFilepath) {
+		if dir := configDir(); dir != "" {
+			templateFullpath = filepath.Join(dir, templateFilepath)
+		}
+	}
 
 	content, err := os.ReadFile(templateFullpath)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to read template file: %s\n", templateFullpath)
+		if defaultPath := defaultTemplatePath(); defaultPath != "" {
+			if content, err := os.ReadFile(defaultPath); err == nil {
+				return string(content)
+			}
+		}
 		return TEMPLATE_DEFAULT
 	}
 	return string(content)

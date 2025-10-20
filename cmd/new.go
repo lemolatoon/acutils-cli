@@ -23,6 +23,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -40,7 +41,15 @@ var newCmd = &cobra.Command{
 		}
 
 		directory := args[0]
+
 		templateSourceContent := GetTemplateFileContent()
+		if templatePath != "" {
+			content, err := os.ReadFile(templatePath)
+			if err != nil {
+				return fmt.Errorf("failed to read template file %s: %w", templatePath, err)
+			}
+			templateSourceContent = string(content)
+		}
 
 		if err := os.Mkdir(directory, 0755); err != nil {
 			return err
@@ -54,6 +63,16 @@ var newCmd = &cobra.Command{
 	},
 }
 
+var templatePath string
+
 func init() {
 	rootCmd.AddCommand(newCmd)
+	defaultTemplate := defaultTemplatePath()
+	desc := "path to template source file used for the new problem"
+	if defaultTemplate != "" {
+		desc = fmt.Sprintf("%s (default: %s)", desc, defaultTemplate)
+	} else {
+		desc = fmt.Sprintf("%s (default: $HOME/.acutils-cli/template.cpp)", desc)
+	}
+	newCmd.Flags().StringVar(&templatePath, "template", "", desc)
 }
