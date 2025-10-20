@@ -25,13 +25,11 @@ jobs:
           go-version-file: ./go.mod
           cache: true
 
-      - name: Build binary
+      - name: Build binaries
         run: |
-          CG_ENABLED=0 go build -o acutils-cli
-
-      - name: Move binary to installer directory
-        run: |
-          mv acutils-cli installer/
+          set -euo pipefail
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o installer/acutils-cli-linux-amd64
+          CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o installer/acutils-cli-darwin-arm64
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
