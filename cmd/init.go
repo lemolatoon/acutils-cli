@@ -25,6 +25,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -53,6 +54,10 @@ Create new directory for the contest. This command will also put
 			return err
 		}
 		if err := os.WriteFile(filepath.Join(directory, ".vscode", "settings.json"), []byte(settingsJsonContent), 0644); err != nil {
+			return err
+		}
+		flags := strings.Join(GetCXXFLAGS(), "\n")
+		if err := os.WriteFile(filepath.Join(directory, "compile_flags.txt"), []byte(flags), 0644); err != nil {
 			return err
 		}
 

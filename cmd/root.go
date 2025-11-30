@@ -132,11 +132,11 @@ func GetCXX() string {
 	return "c++"
 }
 
-const DEFAULT_CXXFLAGS = "-g -Wall -Wextra -fsanitize=undefined,address -std=c++20"
+var DEFAULT_CXXFLAGS = []string{"-g", "-Wall", "-Wextra", "-fsanitize=undefined,address", "-std=c++23"}
 
-func GetCXXFLAGS() string {
-	cxxflags := viper.GetString("CXXFLAGS")
-	if cxxflags != "" {
+func GetCXXFLAGS() []string {
+	cxxflags := viper.GetStringSlice("CXXFLAGS")
+	if len(cxxflags) != 0 {
 		return cxxflags
 	}
 
