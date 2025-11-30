@@ -52,7 +52,7 @@ With CXXFLAGS in .acutils-cli.toml, you can specify compiler flags.
 
 		executeFilePath := filepath.Join(directory, "a.out")
 		if checkIfShouldCompile(sourceFilePath, executeFilePath) {
-			flags := strings.Join(GetCXXFLAGS(), " ");
+			flags := strings.Join(GetCXXFLAGS(), " ")
 			if err := shell.Run(fmt.Sprintf("%s %s %s -o %s", GetCXX(), sourceFilePath, flags, executeFilePath)); err != nil {
 				return err
 			}
