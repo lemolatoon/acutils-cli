@@ -26,6 +26,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/lemolatoon/acutils-cli/shell"
 	"github.com/spf13/cobra"
@@ -51,7 +52,8 @@ With CXXFLAGS in .acutils-cli.toml, you can specify compiler flags.
 
 		executeFilePath := filepath.Join(directory, "a.out")
 		if checkIfShouldCompile(sourceFilePath, executeFilePath) {
-			if err := shell.Run(fmt.Sprintf("%s %s %s -o %s", GetCXX(), sourceFilePath, GetCXXFLAGS(), executeFilePath)); err != nil {
+			flags := strings.Join(GetCXXFLAGS(), " ");
+			if err := shell.Run(fmt.Sprintf("%s %s %s -o %s", GetCXX(), sourceFilePath, flags, executeFilePath)); err != nil {
 				return err
 			}
 		}
